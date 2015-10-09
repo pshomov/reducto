@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>Reducto</id>
+    <version>0.9.0</version>
+    <authors>Petar Shomov</authors>
+    <owners>Petar Shomov</owners>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>https://github.com/pshomov/reducto</projectUrl>
+    <!--<iconUrl>https://github.com/pshomov/reducto</iconUrl>-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A port of Redux to .NET</description>
+    <releaseNotes>Hello world ;)</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>redux mvvm mvc pattern</tags>
+    <dependencies>
+    </dependencies>
+  </metadata>
+</package>
