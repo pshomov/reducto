@@ -99,7 +99,7 @@ namespace Reducto.Tests
                 .Part(s => s.destination, destinationReducer);
             var store = new Store<Order>(orderReducer);
             store.Dispatch(new SetOrigin {newAddress = new Address {streetNr = "Laugavegur 26", city = "Reykjavík"}});
-            store.Dispatch(new SetDestination {newAddress = new Address {streetNr = "5th Street", city = "New York"}});
+            store.Dispatch(new SetDestination {newAddress = new Address {streetNr = "5th Avenue", city = "New York"}});
             store.Dispatch(new SetDelivery {method = DeliveryMethod.GUARANTEED});
 
             store.Dispatch(new BehindSchedule());
@@ -110,7 +110,7 @@ namespace Reducto.Tests
                 destination =
                     new Destination
                     {
-                        addr = new Address {streetNr = "5th Street", city = "New York"},
+                        addr = new Address {streetNr = "5th Avenue", city = "New York"},
                         deliver = DeliveryMethod.REGULAR
                     }
             }, store.GetState());
