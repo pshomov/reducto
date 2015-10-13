@@ -107,12 +107,12 @@ namespace Reducto
             private readonly List<StateChangedSubscriber<State>> subscriptions =
                 new List<StateChangedSubscriber<State>>();
 
-            private State _state;
+            private State state;
 
             public SyncStore(Reducer<State> rootReducer)
             {
                 this.rootReducer = rootReducer;
-                _state = rootReducer(_state, new InitStoreAction());
+                state = rootReducer(state, new InitStoreAction());
             }
 
             public Unsubscribe Subscribe(StateChangedSubscriber<State> subscription)
@@ -123,16 +123,16 @@ namespace Reducto
 
             public void Dispatch(Action action)
             {
-                _state = rootReducer(_state, action);
+                state = rootReducer(state, action);
                 foreach (var s in subscriptions)
                 {
-                    s(_state);
+                    s(state);
                 }
             }
 
             public State GetState()
             {
-                return _state;
+                return state;
             }
         }
     }
