@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using NUnit.Framework;
+using System;
 
 namespace Reducto.Tests
 {
-    public class ItemAdded : Action
+    public class ItemAdded
     {
         public string item;
     }
@@ -37,7 +38,7 @@ namespace Reducto.Tests
         [Test]
         public void should_register_root_reducer()
         {
-            Reducer<List<string>> reducer = (List<string> state, Action action) =>
+            Reducer<List<string>> reducer = (List<string> state, Object action) =>
             {
                 if (action.GetType() == typeof (InitStoreAction)) return new List<string> {"Use ReduxVVM"};
 

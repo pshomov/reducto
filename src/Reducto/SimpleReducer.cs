@@ -18,7 +18,7 @@ namespace Reducto
             this.initializer = initializer;
         }
 
-        public SimpleReducer<State> When<Event>(Func<State, Event, State> handler) where Event : Action, new()
+        public SimpleReducer<State> When<Event>(Func<State, Event, State> handler) where Event : new()
         {
             handlers.Add(typeof (Event), handler);
             return this;
@@ -26,7 +26,7 @@ namespace Reducto
 
         public Reducer<State> Get()
         {
-            return delegate(State state, Action action)
+            return delegate(State state, Object action)
             {
                 var prevState = action.GetType() == typeof (InitStoreAction) ? initializer() : state;
                 if (handlers.ContainsKey(action.GetType()))

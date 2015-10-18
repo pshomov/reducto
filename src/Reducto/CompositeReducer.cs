@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
-using Action = Reducto.Action;
 
 namespace Reducto
 {
@@ -52,7 +51,7 @@ namespace Reducto
 
         public Reducer<State> Get()
         {
-            return delegate(State state, Action action)
+            return delegate(State state, Object action)
             {
                 var result = action.GetType() == typeof (InitStoreAction) ? initializer() : state;
                 foreach (var fieldReducer in fieldReducers)

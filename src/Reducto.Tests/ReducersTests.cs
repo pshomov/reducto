@@ -2,12 +2,12 @@
 
 namespace Reducto.Tests
 {
-    public class TopicSet : Action
+    public class TopicSet
     {
         public string topic;
     }
 
-    public class FilterVisibility : Action
+    public class FilterVisibility
     {
         public bool visible;
     }
@@ -51,21 +51,21 @@ namespace Reducto.Tests
             public Address origin;
         }
 
-        private struct SetOrigin : Action
+        private struct SetOrigin
         {
             public Address newAddress;
         }
 
-        private struct SetDestination : Action
+        private struct SetDestination
         {
             public Address newAddress;
         }
 
-        private struct BehindSchedule : Action
+        private struct BehindSchedule
         {
         }
 
-        private struct SetDelivery : Action
+        private struct SetDelivery
         {
             public DeliveryMethod method;
         }

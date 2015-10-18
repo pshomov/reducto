@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace Reducto.Tests
 {
-    public class SomeAction : Action
+    public class SomeAction
     {
         public string topic;
     }

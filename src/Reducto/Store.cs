@@ -5,26 +5,22 @@ using System.Threading.Tasks;
 
 namespace Reducto
 {
-    public interface Action
+    public sealed class InitStoreAction
     {
     }
 
-    public sealed class InitStoreAction : Action
-    {
-    }
-
-    public delegate State Reducer<State>(State state, Action action);
+    public delegate State Reducer<State>(State state, Object action);
 
     public delegate void StateChangedSubscriber<State>(State state);
 
     public delegate void Unsubscribe();
 
-    public delegate void DispatcherDelegate(Action a);
+    public delegate void DispatcherDelegate(Object a);
 
     public interface IBasicStore<State>
     {
         Unsubscribe Subscribe(StateChangedSubscriber<State> subscription);
-        void Dispatch(Action action);
+        void Dispatch(Object action);
         State GetState();
     }
 
@@ -54,7 +50,7 @@ namespace Reducto
             return store.Subscribe(subscription);
         }
 
-        public void Dispatch(Action action)
+        public void Dispatch(Object action)
         {
             middlewares(action);
         }
@@ -121,7 +117,7 @@ namespace Reducto
                 return () => { subscriptions.Remove(subscription); };
             }
 
-            public void Dispatch(Action action)
+            public void Dispatch(Object action)
             {
                 state = rootReducer(state, action);
                 foreach (var s in subscriptions)
@@ -137,7 +133,7 @@ namespace Reducto
         }
     }
 
-    public delegate void MiddlewareExecutor(Action a);
+    public delegate void MiddlewareExecutor(Object a);
 
     public delegate MiddlewareExecutor MiddlewareChainer(MiddlewareExecutor next);
 
