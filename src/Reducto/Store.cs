@@ -21,7 +21,7 @@ namespace Reducto
 
     public delegate void DispatcherDelegate(Action a);
 
-    public interface IStore<State>
+    public interface IBasicStore<State>
     {
         Unsubscribe Subscribe(StateChangedSubscriber<State> subscription);
         void Dispatch(Action action);
@@ -32,7 +32,7 @@ namespace Reducto
     {
         public delegate State GetStateDelegate();
 
-        private readonly SyncStore store;
+        private readonly BasicStore store;
         private MiddlewareExecutor middlewares;
 
         public Store(SimpleReducer<State> rootReducer) : this(rootReducer.Get())
@@ -45,7 +45,7 @@ namespace Reducto
 
         public Store(Reducer<State> rootReducer)
         {
-            store = new SyncStore(rootReducer);
+            store = new BasicStore(rootReducer);
             Middleware();
         }
 
@@ -100,7 +100,7 @@ namespace Reducto
                     .Aggregate<MiddlewareChainer, MiddlewareExecutor>(store.Dispatch, (acc, middle) => middle(acc));
         }
 
-        private class SyncStore : IStore<State>
+        private class BasicStore : IBasicStore<State>
         {
             private readonly Reducer<State> rootReducer;
 
@@ -109,7 +109,7 @@ namespace Reducto
 
             private State state;
 
-            public SyncStore(Reducer<State> rootReducer)
+            public BasicStore(Reducer<State> rootReducer)
             {
                 this.rootReducer = rootReducer;
                 state = rootReducer(state, new InitStoreAction());
@@ -141,5 +141,5 @@ namespace Reducto
 
     public delegate MiddlewareExecutor MiddlewareChainer(MiddlewareExecutor next);
 
-    public delegate MiddlewareChainer Middleware<State>(IStore<State> store);
+    public delegate MiddlewareChainer Middleware<State>(IBasicStore<State> store);
 }
