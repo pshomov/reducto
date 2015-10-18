@@ -28,7 +28,7 @@ namespace Reducto
         State GetState();
     }
 
-    public class Store<State> where State : new()
+    public class Store<State>
     {
         public delegate State GetStateDelegate();
 

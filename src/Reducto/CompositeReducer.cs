@@ -6,7 +6,7 @@ using Action = Reducto.Action;
 
 namespace Reducto
 {
-    public class CompositeReducer<State> where State : new()
+    public class CompositeReducer<State>
     {
         private readonly List<Tuple<FieldInfo, Delegate>> fieldReducers = new List<Tuple<FieldInfo, Delegate>>();
         private readonly Func<State> initializer;
