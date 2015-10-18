@@ -8,16 +8,16 @@ namespace Reducto
     public class CompositeReducer<State>
     {
         private readonly List<Tuple<FieldInfo, Delegate>> fieldReducers = new List<Tuple<FieldInfo, Delegate>>();
-        private readonly Func<State> initializer;
+        private readonly Func<State> stateInitializer;
 
         public CompositeReducer()
         {
-            initializer = () => default(State);
+            stateInitializer = () => default(State);
         }
 
         public CompositeReducer(Func<State> initializer)
         {
-            this.initializer = initializer;
+            this.stateInitializer = initializer;
         }
 
         public CompositeReducer<State> Part<T>(Expression<Func<State, T>> composer, SimpleReducer<T> reducer)
@@ -52,7 +52,7 @@ namespace Reducto
         {
             return delegate(State state, Object action)
             {
-                var result = action.GetType() == typeof (InitStoreAction) ? initializer() : state;
+                var result = action.GetType() == typeof (InitStoreAction) ? stateInitializer() : state;
                 foreach (var fieldReducer in fieldReducers)
                 {
                     var prevState = action.GetType() == typeof (InitStoreAction)

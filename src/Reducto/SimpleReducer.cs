@@ -6,16 +6,16 @@ namespace Reducto
     public class SimpleReducer<State>
     {
         private readonly Dictionary<Type, Delegate> handlers = new Dictionary<Type, Delegate>();
-        private readonly Func<State> initializer;
+        private readonly Func<State> stateInitializer;
 
         public SimpleReducer()
         {
-            initializer = () => default(State);
+            stateInitializer = () => default(State);
         }
 
         public SimpleReducer(Func<State> initializer)
         {
-            this.initializer = initializer;
+            this.stateInitializer = initializer;
         }
 
         public SimpleReducer<State> When<Event>(Func<State, Event, State> handler)
@@ -28,7 +28,7 @@ namespace Reducto
         {
             return delegate(State state, Object action)
             {
-                var prevState = action.GetType() == typeof (InitStoreAction) ? initializer() : state;
+                var prevState = action.GetType() == typeof (InitStoreAction) ? stateInitializer() : state;
                 if (handlers.ContainsKey(action.GetType()))
                 {
                     var handler = handlers[action.GetType()];

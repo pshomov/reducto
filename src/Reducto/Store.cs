@@ -120,9 +120,9 @@ namespace Reducto
             public void Dispatch(Object action)
             {
                 state = rootReducer(state, action);
-                foreach (var s in subscriptions)
+                foreach (var subscribtion in subscriptions)
                 {
-                    s(state);
+                    subscribtion(state);
                 }
             }
 
@@ -133,9 +133,9 @@ namespace Reducto
         }
     }
 
-    public delegate void MiddlewareExecutor(Object a);
+    public delegate void MiddlewareExecutor(Object action);
 
-    public delegate MiddlewareExecutor MiddlewareChainer(MiddlewareExecutor next);
+    public delegate MiddlewareExecutor MiddlewareChainer(MiddlewareExecutor nextMiddleware);
 
     public delegate MiddlewareChainer Middleware<State>(IBasicStore<State> store);
 }
