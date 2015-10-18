@@ -26,7 +26,6 @@ namespace Reducto
         }
 
         public CompositeReducer<State> Part<T>(Expression<Func<State, T>> composer, CompositeReducer<T> reducer)
-            where T : new()
         {
             return Part(composer, reducer.Get());
         }

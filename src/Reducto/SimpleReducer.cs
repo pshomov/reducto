@@ -18,7 +18,7 @@ namespace Reducto
             this.initializer = initializer;
         }
 
-        public SimpleReducer<State> When<Event>(Func<State, Event, State> handler) where Event : new()
+        public SimpleReducer<State> When<Event>(Func<State, Event, State> handler)
         {
             handlers.Add(typeof (Event), handler);
             return this;
