@@ -68,21 +68,21 @@ namespace Reducto
         }
 
         public AsyncActionNeedsParam<T, Result> asyncAction<T, Result>(
-            Func<DispatcherDelegate, GetStateDelegate, T, Task<Result>> m)
+            Func<DispatcherDelegate, GetStateDelegate, T, Task<Result>> action)
         {
-            return a => (dispatch, getState) => m(dispatch, getState, a);
+            return invokeParam => (dispatch, getState) => action(dispatch, getState, invokeParam);
         }
 
         public AsyncActionNeedsParam<T> asyncActionVoid<T>(
-            Func<DispatcherDelegate, GetStateDelegate, T, Task> m)
+            Func<DispatcherDelegate, GetStateDelegate, T, Task> action)
         {
-            return a => (dispatch, getState) => m(dispatch, getState, a);
+            return invokeParam => (dispatch, getState) => action(dispatch, getState, invokeParam);
         }
 
         public AsyncAction<Result> asyncAction<Result>(
-            AsyncAction<Result> m)
+            AsyncAction<Result> action)
         {
-            return (dispatch, getState) => m(dispatch, getState);
+            return (dispatch, getState) => action(dispatch, getState);
         }
 
         public State GetState()
