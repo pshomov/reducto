@@ -10,11 +10,8 @@ namespace Reducto
     }
 
     public delegate State Reducer<State>(State state, Object action);
-
     public delegate void StateChangedSubscriber<State>(State state);
-
     public delegate void Unsubscribe();
-
     public delegate void DispatcherDelegate(Object a);
 
     public interface IBasicStore<State>
@@ -27,6 +24,11 @@ namespace Reducto
     public class Store<State>
     {
         public delegate State GetStateDelegate();
+        public delegate Task AsyncAction(DispatcherDelegate dispatcher, GetStateDelegate getState);
+        public delegate Task<Result> AsyncAction<Result>(DispatcherDelegate dispatcher, GetStateDelegate getState);
+        public delegate AsyncAction<Result> AsyncActionNeedsParam<T, Result>(T param); 
+        public delegate AsyncAction AsyncActionNeedsParam<T>(T param);
+
 
         private readonly BasicStore store;
         private MiddlewareExecutor middlewares;
@@ -55,30 +57,30 @@ namespace Reducto
             middlewares(action);
         }
 
-        public Task<Result> Dispatch<Result>(Func<DispatcherDelegate, GetStateDelegate, Task<Result>> actionWithParams)
+        public Task<Result> Dispatch<Result>(AsyncAction<Result> action)
         {
-            return actionWithParams(Dispatch, GetState);
+            return action(Dispatch, GetState);
         }
 
-        public Task Dispatch(Func<DispatcherDelegate, GetStateDelegate, Task> actionWithParams)
+        public Task Dispatch(AsyncAction action)
         {
-            return actionWithParams(Dispatch, GetState);
+            return action(Dispatch, GetState);
         }
 
-        public Func<T, Func<DispatcherDelegate, GetStateDelegate, Task<Result>>> asyncAction<T, Result>(
+        public AsyncActionNeedsParam<T, Result> asyncAction<T, Result>(
             Func<DispatcherDelegate, GetStateDelegate, T, Task<Result>> m)
         {
             return a => (dispatch, getState) => m(dispatch, getState, a);
         }
 
-        public Func<T, Func<DispatcherDelegate, GetStateDelegate, Task>> asyncActionVoid<T>(
+        public AsyncActionNeedsParam<T> asyncActionVoid<T>(
             Func<DispatcherDelegate, GetStateDelegate, T, Task> m)
         {
             return a => (dispatch, getState) => m(dispatch, getState, a);
         }
 
-        public Func<DispatcherDelegate, GetStateDelegate, Task<Result>> asyncAction<Result>(
-            Func<DispatcherDelegate, GetStateDelegate, Task<Result>> m)
+        public AsyncAction<Result> asyncAction<Result>(
+            AsyncAction<Result> m)
         {
             return (dispatch, getState) => m(dispatch, getState);
         }
@@ -134,8 +136,6 @@ namespace Reducto
     }
 
     public delegate void MiddlewareExecutor(Object action);
-
     public delegate MiddlewareExecutor MiddlewareChainer(MiddlewareExecutor nextMiddleware);
-
     public delegate MiddlewareChainer Middleware<State>(IBasicStore<State> store);
 }
