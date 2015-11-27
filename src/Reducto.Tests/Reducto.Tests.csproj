@@ -43,6 +43,7 @@
     <Compile Include="MiddlewareTests.cs" />
     <Compile Include="ReducersTests.cs" />
     <Compile Include="StoreTests.cs" />
+    <Compile Include="ExampleTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Reducto\Reducto.csproj">
