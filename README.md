@@ -3,7 +3,14 @@
 [![Build Status](https://img.shields.io/travis/pshomov/reducto.svg?style=flat-square)](https://travis-ci.org/pshomov/reducto)
 [![NuGet Release](https://img.shields.io/nuget/v/Reducto.svg?style=flat-square)](https://www.nuget.org/packages/Reducto/)
 
-Reducto is a keeper of the state for your app. It helps to organize the logic that changes that state.
+
+Reducto is a keeper of the state for your app. It helps to organize the logic that changes that state. Really useful for GUI apps in combination with(but not limited to) MVVM, MVC, MVP etc. 
+
+|Metric|Value|
+|-------|-----|
+|lines of code| ~260|
+|dependencies| 0 |
+|packaging | [NuGet PCL](https://www.nuget.org/packages/Reducto/) |
 
 ## Installation
 
