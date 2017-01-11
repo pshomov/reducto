@@ -9,19 +9,22 @@ namespace Reducto.Tests
     {
         // Actions
 
-        public struct LoginStarted { 
+        public struct LoginStarted 
+        { 
             public string Username; 
         }
 
         public struct LoginFailed {}
 
-        public struct LoginSucceeded {
+        public struct LoginSucceeded 
+        {
             public string Token;
         }
 
         // State
 
-        public enum LoginStatus {
+        public enum LoginStatus 
+        {
             LoginInProgress, LoggedIn, NotLoggedIn
         }
 
@@ -35,20 +38,20 @@ namespace Reducto.Tests
         [Test]
         public async void all_in_one_example(){
             var reducer = new SimpleReducer<AppState>()
-                .When<LoginStarted>((status, action) => {
-                    status.Username = action.Username;
-                    status.Token = "";
-                    status.Status = LoginStatus.LoginInProgress;
-                    return status;
+                .When<LoginStarted>((state, action) => {
+                    state.Username = action.Username;
+                    state.Token = "";
+                    state.Status = LoginStatus.LoginInProgress;
+                    return state;
                 })
-                .When<LoginSucceeded>((status, action) => {
-                    status.Token = action.Token;
-                    status.Status = LoginStatus.LoggedIn;
-                    return status;
+                .When<LoginSucceeded>((state, action) => {
+                    state.Token = action.Token;
+                    state.Status = LoginStatus.LoggedIn;
+                    return state;
                 })
-                .When<LoginFailed>((status, action) => {
-                    status.Status = LoginStatus.NotLoggedIn;
-                    return status;
+                .When<LoginFailed>((state, action) => {
+                    state.Status = LoginStatus.NotLoggedIn;
+                    return state;
                 });
 
             var store = new Store<AppState>(reducer);
