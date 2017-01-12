@@ -31,24 +31,25 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="nunit.framework">
-      <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.3.6.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="AsyncActions.cs" />
     <Compile Include="MiddlewareTests.cs" />
     <Compile Include="ReducersTests.cs" />
     <Compile Include="StoreTests.cs" />
     <Compile Include="ExampleTest.cs" />
+    <Compile Include="EmptyClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Reducto\Reducto.csproj">
       <Project>{791678FE-0CF1-4A84-BCBD-EB6DBBAB10CD}</Project>
       <Name>Reducto</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

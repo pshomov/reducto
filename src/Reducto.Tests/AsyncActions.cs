@@ -13,7 +13,7 @@ namespace Reducto.Tests
     public class AsyncActions
     {
         [Test]
-        public async void should_allow_for_async_execution_of_code()
+        public async Task should_allow_for_async_execution_of_code()
         {
             var storeReducerReached = 0;
             var reducer = new SimpleReducer<List<string>>(() => new List<string> {"a"}).When<SomeAction>((s, e) =>
@@ -36,7 +36,7 @@ namespace Reducto.Tests
         }
 
         [Test]
-        public async void should_allow_for_passing_parameters_to_async_actions()
+        public async Task should_allow_for_passing_parameters_to_async_actions()
         {
             var storeReducerReached = 0;
             var reducer = new SimpleReducer<List<string>>(() => new List<string> {"a"}).When<SomeAction>((s, e) =>

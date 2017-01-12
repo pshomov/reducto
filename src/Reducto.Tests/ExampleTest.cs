@@ -36,7 +36,7 @@ namespace Reducto.Tests
         }
             
         [Test]
-        public async void all_in_one_example(){
+        public async Task all_in_one_example(){
             var reducer = new SimpleReducer<AppState>()
                 .When<LoginStarted>((state, action) => {
                     state.Username = action.Username;
