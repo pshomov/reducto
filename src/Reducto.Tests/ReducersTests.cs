@@ -76,8 +76,8 @@ namespace Reducto.Tests
             var topicReducer = new SimpleReducer<string>().When<TopicSet>((s, e) => e.topic);
             var visibilityReducer = new SimpleReducer<bool>().When<FilterVisibility>((s, e) => e.visible);
             var reducer = new CompositeReducer<AppStore>(() => new AppStore {redditTopic = "react", visibility = false})
-                .Part(s => s.redditTopic, topicReducer)
-                .Part(s => s.visibility, visibilityReducer);
+                .Part(state => state.redditTopic, topicReducer)
+                .Part(state => state.visibility, visibilityReducer);
             var store = new Store<AppStore>(reducer);
             store.Dispatch(new TopicSet {topic = "Redux is awesome"});
             store.Dispatch(new FilterVisibility {visible = true});
@@ -90,13 +90,13 @@ namespace Reducto.Tests
         {
             var originReducer = new SimpleReducer<Address>().When<SetOrigin>((s, e) => e.newAddress);
             var destinationReducer = new CompositeReducer<Destination>()
-                .Part(s => s.deliver,
+                .Part(state => state.deliver,
                     new SimpleReducer<DeliveryMethod>().When<BehindSchedule>((s, a) => DeliveryMethod.REGULAR)
                         .When<SetDelivery>((_, a) => a.method))
-                .Part(s => s.addr, new SimpleReducer<Address>().When<SetDestination>((s, a) => a.newAddress));
+                .Part(state => state.addr, new SimpleReducer<Address>().When<SetDestination>((s, a) => a.newAddress));
             var orderReducer = new CompositeReducer<Order>()
-                .Part(s => s.origin, originReducer)
-                .Part(s => s.destination, destinationReducer);
+                .Part(state => state.origin, originReducer)
+                .Part(state => state.destination, destinationReducer);
             var store = new Store<Order>(orderReducer);
             store.Dispatch(new SetOrigin {newAddress = new Address {streetNr = "Laugavegur 26", city = "Reykjavík"}});
             store.Dispatch(new SetDestination {newAddress = new Address {streetNr = "5th Avenue", city = "New York"}});

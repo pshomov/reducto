@@ -20,10 +20,10 @@ namespace Reducto.Tests
                 storeReducerReached += 1;
                 return s;
             });
-            var store = new Store<List<string>>(reducer);
+            var stateStore = new Store<List<string>>(reducer);
             var middlewareCounter = 0;
-            store.Middleware(
-                s => next => action =>
+            stateStore.Middleware(
+                store => next => action =>
                 {
                     middlewareCounter += 3;
                     Assert.That(middlewareCounter, Is.EqualTo(3));
@@ -31,7 +31,7 @@ namespace Reducto.Tests
                     middlewareCounter += 3000;
                     Assert.That(middlewareCounter, Is.EqualTo(3333));
                 },
-                s => next => action =>
+                store => next => action =>
                 {
                     middlewareCounter += 30;
                     Assert.That(middlewareCounter, Is.EqualTo(33));
@@ -40,7 +40,7 @@ namespace Reducto.Tests
                 }
                 );
 
-            store.Dispatch(new SomeAction());
+            stateStore.Dispatch(new SomeAction());
             Assert.That(middlewareCounter, Is.EqualTo(3333));
             Assert.That(storeReducerReached, Is.EqualTo(0));
         }
@@ -54,10 +54,10 @@ namespace Reducto.Tests
                 storeReducerReached += 1;
                 return s;
             });
-            var store = new Store<List<string>>(reducer);
+            var stateStore = new Store<List<string>>(reducer);
             var middlewareCounter = 0;
-            store.Middleware(
-                s => next => action =>
+            stateStore.Middleware(
+                store => next => action =>
                 {
                     middlewareCounter += 3;
                     Assert.That(middlewareCounter, Is.EqualTo(3));
@@ -65,7 +65,7 @@ namespace Reducto.Tests
                     middlewareCounter += 3000;
                     Assert.That(middlewareCounter, Is.EqualTo(3333));
                 },
-                s => next => action =>
+                store => next => action =>
                 {
                     middlewareCounter += 30;
                     Assert.That(middlewareCounter, Is.EqualTo(33));
@@ -77,7 +77,7 @@ namespace Reducto.Tests
                 }
                 );
 
-            store.Dispatch(new SomeAction());
+            stateStore.Dispatch(new SomeAction());
             Assert.That(middlewareCounter, Is.EqualTo(3333));
             Assert.That(storeReducerReached, Is.EqualTo(1));
         }
@@ -91,17 +91,17 @@ namespace Reducto.Tests
                 storeReducerReached += 1;
                 return s;
             });
-            var store = new Store<List<string>>(reducer);
+            var stateStore = new Store<List<string>>(reducer);
             var middlewareCounter = 0;
-            store.Middleware(
-                s => next => action =>
+            stateStore.Middleware(
+                store => next => action =>
                 {
                     middlewareCounter += 3;
                     Assert.That(middlewareCounter, Is.EqualTo(3));
                     middlewareCounter += 3000;
                     Assert.That(middlewareCounter, Is.EqualTo(3003));
                 },
-                s => next => action =>
+                store => next => action =>
                 {
                     middlewareCounter += 30;
                     Assert.That(middlewareCounter, Is.EqualTo(33));
@@ -113,7 +113,7 @@ namespace Reducto.Tests
                 }
                 );
 
-            store.Dispatch(new SomeAction());
+            stateStore.Dispatch(new SomeAction());
             Assert.That(middlewareCounter, Is.EqualTo(3003));
             Assert.That(storeReducerReached, Is.EqualTo(0));
         }
