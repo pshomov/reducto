@@ -26,7 +26,7 @@ namespace Reducto
         public delegate State GetStateDelegate();
         public delegate Task AsyncAction(DispatcherDelegate dispatcher, GetStateDelegate getState);
         public delegate Task<Result> AsyncAction<Result>(DispatcherDelegate dispatcher, GetStateDelegate getState);
-        public delegate AsyncAction<Result> AsyncActionNeedsParam<T, Result>(T param); 
+        public delegate AsyncAction<Result> AsyncActionNeedsParam<T, Result>(T param);
         public delegate AsyncAction AsyncActionNeedsParam<T>(T param);
 
 

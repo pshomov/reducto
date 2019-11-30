@@ -1,55 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{74FEF20E-0AC9-431A-A8FA-178AFFA678B3}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>Reducto.Tests</RootNamespace>
-    <AssemblyName>Reducto.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\packages\NUnit.3.6.0\lib\net45\nunit.framework.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Compile Include="AsyncActions.cs" />
-    <Compile Include="MiddlewareTests.cs" />
-    <Compile Include="ReducersTests.cs" />
-    <Compile Include="StoreTests.cs" />
-    <Compile Include="ExampleTest.cs" />
-    <Compile Include="EmptyClass.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Reducto\Reducto.csproj">
-      <Project>{791678FE-0CF1-4A84-BCBD-EB6DBBAB10CD}</Project>
-      <Name>Reducto</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net471</TargetFramework>
+        <RootNamespace>Reducto.Tests</RootNamespace>
+        <AssemblyName>Reducto.Tests</AssemblyName>
+        <ProjectGuid>{74FEF20E-0AC9-431A-A8FA-178AFFA678B3}</ProjectGuid>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="NUnit" Version="3.10.1" />
+      <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Reducto\Reducto.csproj" />
+    </ItemGroup>
+
 </Project>
