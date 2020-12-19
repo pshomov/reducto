@@ -34,7 +34,7 @@ Dispatching an `async action` cannot change the state but it can dispatch `actio
 
 ## How does one use this thing?
 
-Here is a short example of Reducto in action. Let's write an app that authenticates an user. 
+Here is a short example of Reducto in action. Let's write an app that authenticates a user. 
 
 First, let's define the `actions` that we will need:
 
